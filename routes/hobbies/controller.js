@@ -2,11 +2,14 @@ const { Hobbies, User } = require("../../models");
 
 module.exports = {
     getAll: async (req, res) => {
-        const result = await Hobbies.find({});
+        try {
+            const result = await Hobbies.find({});
 
-        await res.status(200).send(result);
+            res.status(200).send({ message: "Show Data users", data: result });
+        } catch (error) {
+            console.log(error);
+        }
     },
-
     create: async (req, res) => {
         const hobbies = await Hobbies.create({ hobby: req.body.hobby });
 
