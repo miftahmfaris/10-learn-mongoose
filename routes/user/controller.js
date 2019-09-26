@@ -8,7 +8,14 @@ module.exports = {
     },
     create: async (req, res) => {
         try {
-            const result = await User.create(req.body);
+            const values = {
+                name: req.body.name,
+                email: req.body.email,
+                image: req.files[0].originalname.replace(/ /g, "_"),
+                pathImage: req.files[0].path.replace(/ /g, "_")
+            };
+
+            const result = await User.create(values);
 
             res.status(200).send({ message: "New User Created", data: result });
         } catch (error) {
